@@ -1,0 +1,13 @@
+
+spring:
+  profiles:
+    active: test
+server:
+  port: 8080
+
+project:
+  application:
+    version: 1.0
+
+testData:
+  root: /json/
