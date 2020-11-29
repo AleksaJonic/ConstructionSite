@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lexsoft.project.constructions.repository.BidderMapper">
+
+    <resultMap id="bidders" type="com.lexsoft.project.constructions.model.db.BidderDB">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="hasWorkingReference" column="has_working_reference"/>
+        <collection property="users" ofType="com.lexsoft.project.constructions.model.db.UserDB">
+            <result property="id" column="id"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="investorId" column="investor_id"/>
+            <result property="bidderId" column="bidder_id"/>
+        </collection>
+    </resultMap>
+
+    <insert id="saveBidder">
+        INSERT INTO bidder ( id, name, has_working_reference)
+        VALUES (#{bidder.id}, #{bidder.name},#{bidder.hasWorkingReference})
+    </insert>
+
+    <select id="findBidderById" resultMap="bidders">
+        SELECT b.id, b.name, b.has_working_reference,u.username, u.password
+        FROM bidder b
+        LEFT JOIN user u ON (b.id = u.bidder_id)
+        WHERE b.id = #{id}
+    </select>
+
+    <select id="findAllBidders" resultMap="bidders">
+        SELECT b.id, b.name, b.has_working_reference,u.username, u.password
+        FROM bidder b
+        LEFT JOIN user u ON (b.id = u.bidder_id)
+    </select>
+
+    <delete id="deleteBidderById">
+        DELETE FROM bidder b WHERE b.id = #{id}
+    </delete>
+
+
+</mapper>
+
+

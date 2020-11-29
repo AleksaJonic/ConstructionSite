@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lexsoft.project.constructions.repository.InvestorMapper">
+
+    <resultMap id="investors" type="com.lexsoft.project.constructions.model.db.InvestorDB">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <collection property="users" ofType="com.lexsoft.project.constructions.model.db.UserDB">
+            <result property="id" column="id"/>
+            <result property="username" column="username"/>
+            <result property="password" column="password"/>
+            <result property="investorId" column="investor_id"/>
+            <result property="bidderId" column="bidder_id"/>
+        </collection>
+    </resultMap>
+
+
+    <insert id="saveInvestor">
+        INSERT INTO investor ( id, name, description)
+        VALUES (#{investor.id}, #{investor.name},#{investor.description})
+    </insert>
+
+    <select id="findInvestorById" resultMap="investors">
+        SELECT i.id, i.name, i.description, u.id, u.username, u.password
+        FROM investor i
+        LEFT JOIN user u ON (i.id = u.investor_id)
+        WHERE i.id = #{id}
+    </select>
+
+    <select id="findAllInvestors" resultMap="investors">
+        SELECT i.id, i.name, i.description, u.id, u.username, u.password
+        FROM investor i
+        LEFT JOIN user u ON (i.id = u.investor_id)
+    </select>
+
+    <delete id="deleteInvestorById">
+        DELETE FROM investor i WHERE i.id = #{id}
+    </delete>
+
+
+</mapper>
+
+

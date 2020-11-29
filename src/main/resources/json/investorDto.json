@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Investor 1",
+    "description": "Some desc....",
+    "users": [
+      {
+        "username": "testuser1@example.com",
+        "password": "testPass"
+      },
+      {
+        "username": "testuser2@example.com",
+        "password": "testPass2"
+      },
+      {
+        "username": "testuser3@example.com",
+        "password": "testPass3"
+      }
+    ]
+  },
+  {
+    "name": "Investor 2",
+    "description": "Some other desc....",
+    "users": [
+      {
+        "username": "testuser4@example.com",
+        "password": "testPass"
+      },
+      {
+        "username": "testuser5@example.com",
+        "password": "testPass2"
+      },
+      {
+        "username": "testuser6@example.com",
+        "password": "testPass3"
+      }
+    ]
+  }
+ ]

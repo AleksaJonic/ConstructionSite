@@ -1,0 +1,17 @@
+[
+  {
+  "id": "7e842fdf-d5eb-48ef-99b1-2df8a636b40b",
+  "username": "testuser1@example.com",
+   "password": "qwerty123"
+  },
+  {
+    "id": "3280f691-43ed-4b46-895a-f2e0df786df2",
+    "username": "testuser2@example.com",
+    "password": "qwerty1234"
+  },
+  {
+    "id": "447c2392-a491-4fd3-b844-e63c503231af",
+    "username": "testuser3@example.com",
+    "password": "qwerty12345"
+  }
+]

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lexsoft.project.constructions.repository.UserMapper">
+
+    <insert id="saveUser">
+        INSERT INTO user ( id, username, password, investor_id, bidder_id)
+        VALUES (#{user.id}, #{user.username},#{user.password}, #{user.investorId}, #{user.bidderId})
+    </insert>
+
+    <select id="findUserById" resultType="com.lexsoft.project.constructions.model.db.UserDB">
+        SELECT u.id, u.username, u.password, u.investor_id AS investorId, u.bidder_id AS bidderId
+        FROM user u
+        WHERE u.id = #{id}
+    </select>
+
+    <select id="findUserByUsername" resultType="com.lexsoft.project.constructions.model.db.UserDB">
+        SELECT u.id, u.username, u.password, u.investor_id AS investorId, u.bidder_id AS bidderId
+        FROM user u
+        WHERE u.username = #{username}
+    </select>
+
+    <insert id="saveBatchUsers">
+        INSERT INTO user (id,username, password, investor_id,bidder_id) VALUES
+        <foreach collection="users" item="user" index="index" separator=",">
+             (#{user.id},#{user.username},#{user.password},#{user.investorId},#{user.bidderId})
+        </foreach>
+    </insert>
+
+   <delete id="deleteUserById">
+        DELETE FROM user u WHERE u.id = #{id}
+    </delete>
+
+    <delete id="deleteInvestorUsers">
+        DELETE FROM user u WHERE u.investor_id = #{investorId}
+    </delete>
+
+    <delete id="deleteBidderUsers">
+        DELETE FROM user u WHERE u.bidder_id = #{bidderId}
+    </delete>
+
+
+
+</mapper>
+
+

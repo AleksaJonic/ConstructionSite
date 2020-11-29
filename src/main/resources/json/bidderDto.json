@@ -1,0 +1,40 @@
+[
+  {
+    "id": "f36febce-cdc8-4412-8dc4-72e7427c5ba2",
+    "name": "Bidder 1",
+    "workingReference": false,
+    "users": [
+      {
+        "username": "testBidUser1@example.com",
+        "password": "testPass"
+      },
+      {
+        "username": "testBidUser2@example.com",
+        "password": "testPass2"
+      },
+      {
+        "username": "testBidUser3@example.com",
+        "password": "testPass3"
+      }
+    ]
+  },
+  {
+    "id" : "e3c31fd7-1db5-4df6-b066-5d972e94e13a",
+    "name": "Bidder 2",
+    "workingReference": true,
+    "users": [
+      {
+        "username": "testBidUser4@example.com",
+        "password": "testPass"
+      },
+      {
+        "username": "testBidUser5@example.com",
+        "password": "testPass2"
+      },
+      {
+        "username": "testBidUser6@example.com",
+        "password": "testPass3"
+      }
+    ]
+  }
+ ]

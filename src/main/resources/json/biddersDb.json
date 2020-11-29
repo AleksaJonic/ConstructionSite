@@ -1,0 +1,12 @@
+[
+  {
+  "id": "f03a6aa9-a785-4448-af56-37a1fdd2884e",
+  "name": "bidder1",
+   "hasWorkingReference": true
+  },
+  {
+    "id": "a4ee1059-aa77-4ee0-961a-6a8d204770d2",
+    "name": "bidder2",
+    "hasWorkingReference": false
+  }
+]
