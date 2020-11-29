@@ -19,7 +19,9 @@ public class UserTransformer implements Transformer<UserDto, UserDB> {
         return  UserDB.builder()
                     .id(userDto.getId())
                     .username(userDto.getUsername())
-                    .password(HashingUtils.hashPassword(userDto.getPassword()))
+                    .password(Optional.ofNullable(userDto.getPassword())
+                            .map(pass -> HashingUtils.hashPassword(pass))
+                            .orElse(null))
                     .investorId(userDto.getInvestorId())
                     .bidderId(userDto.getBidderId())
                     .build();

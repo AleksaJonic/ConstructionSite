@@ -1,0 +1,25 @@
+[{
+    "id": "48ea2df9-1729-40f4-8c35-d5c65226bd04",
+    "active": false,
+    "name": "Tender 1",
+    "description": "Tender description 1",
+    "investor": {
+        "id": "76db9fdb-cc35-4621-b701-8a88fe900045"
+    },
+    "user": {
+        "id": "7e842fdf-d5eb-48ef-99b1-2df8a636b40b"
+    }
+},{
+    "id":"d0210a52-66ff-46cf-a04f-1c6e7fdecd7e",
+    "active": true,
+    "name": "Tender 2",
+    "description": "Tender description 2",
+    "investor": {
+        "id": "7f36febce-cdc8-4412-8dc4-72e7427c5ba"
+    },
+    "user": {
+        "id": "3280f691-43ed-4b46-895a-f2e0df786df2"
+    }
+
+}]
+

@@ -3,9 +3,11 @@ package com.lexsoft.project.constructions.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lexsoft.project.constructions.model.db.BidderDB;
 import com.lexsoft.project.constructions.model.db.InvestorDB;
+import com.lexsoft.project.constructions.model.db.TenderDB;
 import com.lexsoft.project.constructions.model.db.UserDB;
 import com.lexsoft.project.constructions.model.dto.BidderDto;
 import com.lexsoft.project.constructions.model.dto.InvestorDto;
+import com.lexsoft.project.constructions.model.dto.TenderDto;
 import com.lexsoft.project.constructions.model.dto.UserDto;
 
 import lombok.Data;
@@ -69,5 +71,20 @@ public class TestingData extends FileUtils {
         return Arrays.asList(users);
     }
 
+    @SneakyThrows
+    public List<TenderDB> getDbTenders()  {
+        ObjectMapper mapper = new ObjectMapper();
+        String fileAsString = getFileAsString(DATA_FOLDER.concat("tendersDb.json"));
+        TenderDB[] tenders = mapper.readValue(fileAsString, TenderDB[].class);
+        return Arrays.asList(tenders);
+    }
+
+    @SneakyThrows
+    public List<TenderDto> getDtoTenders()  {
+        ObjectMapper mapper = new ObjectMapper();
+        String fileAsString = getFileAsString(DATA_FOLDER.concat("tendersDto.json"));
+        TenderDto[] tenders = mapper.readValue(fileAsString, TenderDto[].class);
+        return Arrays.asList(tenders);
+    }
 
 }

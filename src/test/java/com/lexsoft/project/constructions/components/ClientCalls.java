@@ -2,6 +2,7 @@ package com.lexsoft.project.constructions.components;
 
 import com.lexsoft.project.constructions.model.dto.BidderDto;
 import com.lexsoft.project.constructions.model.dto.InvestorDto;
+import com.lexsoft.project.constructions.model.dto.TenderDto;
 import com.lexsoft.project.constructions.model.dto.UserDto;
 
 import lombok.NoArgsConstructor;
@@ -46,5 +47,20 @@ public class ClientCalls extends ClientCallExecution {
         return executeCall("/users", port, HttpMethod.POST,userDto, template, UserDto.class);
     }
 
+    public ResponseEntity<TenderDto> findOneTender(Integer port, TestRestTemplate template, String id) {
+        return executeCall("/tenders/".concat(id), port, HttpMethod.GET,null, template, TenderDto.class);
+    }
+
+    public ResponseEntity<TenderDto> createTender(Integer port, TestRestTemplate template, TenderDto tenderDto) {
+        return executeCall("/tenders", port, HttpMethod.POST,tenderDto, template, TenderDto.class);
+    }
+
+    public ResponseEntity<TenderDto[]> getMultipleTenders(Integer port, TestRestTemplate template){
+        return executeCall("/tenders", port, HttpMethod.GET,null, template, TenderDto[].class);
+    }
+
+    public ResponseEntity<TenderDto> activateTender(Integer port, TestRestTemplate template, String id){
+        return executeCall("/tenders/".concat(id).concat("/activate"), port, HttpMethod.PUT,null, template, TenderDto.class);
+    }
 
 }

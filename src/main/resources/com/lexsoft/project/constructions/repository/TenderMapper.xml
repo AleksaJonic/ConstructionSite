@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lexsoft.project.constructions.repository.TenderMapper">
+
+    <resultMap id="tenders" type="com.lexsoft.project.constructions.model.db.TenderDB">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="active" column="active"/>
+        <association property="user" javaType="com.lexsoft.project.constructions.model.db.UserDB">
+            <id property="id" column="user_id"/>
+            <result property="username" column="username"/>
+        </association>
+        <association property="investor" javaType="com.lexsoft.project.constructions.model.db.InvestorDB">
+            <id property="id" column="investor_id"/>
+            <result property="name" column="investor_name"/>
+        </association>
+    </resultMap>
+
+    <insert id="saveTender">
+        INSERT INTO tender ( id, name, description, active, investor_id,user_id)
+        VALUES (#{tender.id}, #{tender.name},#{tender.description},#{tender.active},#{tender.investor.id},#{tender.user.id})
+    </insert>
+
+    <select id="findTenderById" resultMap="tenders">
+        SELECT t.id,t.name,t.description,t.active,u.id as user_id,username, i.id as investor_id, i.name AS investor_name
+        FROM tender t
+        LEFT JOIN user u ON (t.user_id = u.id)
+        LEFT JOIN investor i ON (t.investor_id = i.id)
+        WHERE t.id = #{id}
+    </select>
+
+    <select id="findAllTenders" resultMap="tenders">
+        SELECT t.id,t.name,t.description,t.active,u.id AS user_id,username, i.id AS investor_id, i.name AS investor_name
+        FROM tender t
+        LEFT JOIN user u ON (t.user_id = u.id)
+        LEFT JOIN investor i ON (t.investor_id = i.id)
+        WHERE 1=1
+        <if test="userId != null"> AND t.user_id = #{userId} </if>
+        <if test="investorId != null"> AND t.investor_id = #{investorId} </if>
+        <if test="active != null"> AND t.active = #{active} </if>
+    </select>
+
+    <update id="activateTender">
+        UPDATE tender SET active = TRUE WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTender">
+        DELETE FROM tender t WHERE 1=1
+        <if test="id != null"> AND t.id = #{id} </if>
+        <if test="userId != null"> AND t.user_id = #{userId} </if>
+        <if test="investorId != null"> AND t.investor_id = #{investorId} </if>
+    </delete>
+
+
+</mapper>
+
+

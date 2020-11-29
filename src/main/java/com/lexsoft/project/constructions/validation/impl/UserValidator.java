@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,20 @@ public class UserValidator extends AbstractValidator implements Validate<UserDto
         validateMandatory("username",body.getUsername(),errorList);
         validateMandatory("password",body.getPassword(),errorList);
 
+        validateOneOf(Arrays.asList("investorId","bidderId"),"user",
+                errorList,
+                body.getInvestorId() != null ? "investorId" : null,
+                body.getBidderId() != null ? "bidderId" : null);
+
         if(!hasParentValidator && !errorList.isEmpty()){
             throw new InternalWebException(HttpStatus.BAD_REQUEST,errorList);
         }
     }
+
+
+
+
+
 
 
 }

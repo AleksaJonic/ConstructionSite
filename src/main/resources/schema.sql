@@ -25,13 +25,16 @@ create table user (
     foreign key (bidder_id) references bidder(id)
 );
 
-create table construction
+create table tender
 (
    id VARCHAR(36) not null,
    name VARCHAR(200) not null,
    description CLOB null,
+   user_id VARCHAR(36) not null,
    investor_id VARCHAR(36) not null,
+   active BOOLEAN not null,
    primary key(id),
+   foreign key (user_id) references user(id),
    foreign key (investor_id) references investor(id)
 );
 
@@ -41,11 +44,11 @@ create table offer
    description CLOB not null,
    amount DOUBLE not null,
    accepted BOOLEAN not null,
-   construction_id VARCHAR(36) not null,
+   tender_id VARCHAR(36) not null,
    bidder_id VARCHAR(36) not null,
    primary key(id),
    foreign key (bidder_id) references bidder(id),
-   foreign key (construction_id) references construction(id)
+   foreign key (tender_id) references tender(id)
 );
 
 

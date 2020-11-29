@@ -7,20 +7,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class BidderDto {
+public class TenderDto {
 
     private String id;
+    private InvestorDto investor;
     private String name;
-    private Boolean workingReference;
-
-    private List<UserDto> users;
+    private String description;
+    private Boolean active;
+    private UserDto user;
 
 }

@@ -5,6 +5,7 @@ import com.lexsoft.project.constructions.exception.ExceptionUtils;
 import com.lexsoft.project.constructions.exception.types.InternalWebException;
 import com.lexsoft.project.constructions.model.db.InvestorDB;
 import com.lexsoft.project.constructions.repository.InvestorMapper;
+import com.lexsoft.project.constructions.repository.TenderMapper;
 import com.lexsoft.project.constructions.repository.UserMapper;
 import com.lexsoft.project.constructions.service.InvestorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class InvestorServiceImpl implements InvestorService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    TenderMapper tenderMapper;
 
     @Override
     @Transactional
@@ -60,6 +64,7 @@ public class InvestorServiceImpl implements InvestorService {
     @Override
     @Transactional
     public Boolean deleteInvestor(String id) {
+        tenderMapper.deleteTender(null, id,null);
         userMapper.deleteInvestorUsers(id);
         investorMapper.deleteInvestorById(id);
         return Boolean.TRUE;
