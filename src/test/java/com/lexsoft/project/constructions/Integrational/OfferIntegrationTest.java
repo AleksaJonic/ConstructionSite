@@ -7,6 +7,7 @@ import com.lexsoft.project.constructions.model.db.InvestorDB;
 import com.lexsoft.project.constructions.model.db.TenderDB;
 import com.lexsoft.project.constructions.model.db.UserDB;
 import com.lexsoft.project.constructions.model.dto.*;
+import com.lexsoft.project.constructions.repository.OfferMapper;
 import com.lexsoft.project.constructions.repository.UserMapper;
 import com.lexsoft.project.constructions.service.BidderService;
 import com.lexsoft.project.constructions.service.InvestorService;
@@ -58,6 +59,8 @@ public class OfferIntegrationTest {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    OfferMapper offerMapper;
 
     TestRestTemplate template = new TestRestTemplate();
 
@@ -87,6 +90,14 @@ public class OfferIntegrationTest {
 
         clientCalls = new ClientCalls();
 
+    }
+
+    @After
+    public void removeData(){
+        offerMapper.deleteOffersFromTender(tender.getId());
+        tenderService.deleteTender(tender.getId());
+        bidderService.deleteBidders(bidderDB.getId());
+        investorService.deleteInvestor(investorDB.getId());
     }
 
     @Test
@@ -155,8 +166,6 @@ public class OfferIntegrationTest {
         Assert.assertEquals(1, notAccepted.size());
         Assert.assertEquals(OfferEnum.ACCEPTED.name(),acceptedOffer.get(0).getStatus());
         Assert.assertEquals(OfferEnum.REJECTED.name(),notAccepted.get(0).getStatus());
-
-
     }
 
 

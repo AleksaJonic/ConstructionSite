@@ -18,9 +18,6 @@ import java.util.Optional;
 @Component
 public class InvestorValidator extends AbstractValidator implements Validate<InvestorDto> {
 
-    @Autowired
-    Validate<UserDto> userValidator;
-
     @Override
     public void validate(InvestorDto body, List<ErrorMessage> errorList) {
         Boolean hasParentValidator = errorList != null ? Boolean.TRUE : Boolean.FALSE;
@@ -31,7 +28,10 @@ public class InvestorValidator extends AbstractValidator implements Validate<Inv
 
         Optional.ofNullable(body.getUsers())
                 .filter(users -> !users.isEmpty())
-                .ifPresent(users -> users.forEach(u -> userValidator.validate(u, finalErrorList)));
+                .ifPresent(users -> users.forEach(u -> {
+                    validateMandatory("username", u.getUsername(),errorList);
+                    validateMandatory("password",u.getPassword(), finalErrorList);
+                }));
 
         if(!hasParentValidator && !finalErrorList.isEmpty()){
             throw new InternalWebException(HttpStatus.BAD_REQUEST,finalErrorList);

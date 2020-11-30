@@ -24,4 +24,5 @@ public interface OfferMapper {
 
     void rejectTenderOffers(@Param("tenderId") String tenderId, @Param("status") String status);
 
+    void deleteOffersFromTender(@Param("tenderId") String tenderId);
 }

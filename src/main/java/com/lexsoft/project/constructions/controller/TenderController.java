@@ -54,10 +54,5 @@ public class TenderController {
         return ResponseEntity.ok(resultTenderList);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteTender(@PathVariable("id") String id) {
-        tenderService.deleteTender(id);
-        return ResponseEntity.ok().build();
-    }
 
 }

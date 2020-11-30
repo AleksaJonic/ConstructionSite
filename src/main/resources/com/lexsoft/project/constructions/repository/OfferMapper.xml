@@ -63,6 +63,11 @@
         UPDATE offer SET status = #{status} WHERE tender_id = #{tenderId}
     </update>
 
+    <delete id="deleteOffersFromTender">
+        DELETE FROM offer where tender_id = #{tenderId}
+    </delete>
+
+
 
 </mapper>
 

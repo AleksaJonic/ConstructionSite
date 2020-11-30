@@ -18,9 +18,6 @@ import java.util.Optional;
 @Component
 public class BidderValidator extends AbstractValidator implements Validate<BidderDto> {
 
-    @Autowired
-    Validate<UserDto> userValidator;
-
     @Override
     public void validate(BidderDto body, List<ErrorMessage> errorList) {
         Boolean hasParentValidator = errorList != null ? Boolean.TRUE : Boolean.FALSE;
@@ -31,7 +28,10 @@ public class BidderValidator extends AbstractValidator implements Validate<Bidde
 
         Optional.ofNullable(body.getUsers())
                 .filter(users -> !users.isEmpty())
-                .ifPresent(users -> users.forEach(u -> userValidator.validate(u, finalErrorList)));
+                .ifPresent(users -> users.forEach(u -> {
+                    validateMandatory("username", u.getUsername(),errorList);
+                    validateMandatory("password",u.getPassword(), finalErrorList);
+                }));
 
         if(!hasParentValidator && !finalErrorList.isEmpty()){
             throw new InternalWebException(HttpStatus.BAD_REQUEST,finalErrorList);

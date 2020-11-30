@@ -1,5 +1,6 @@
 package com.lexsoft.project.constructions.components;
 
+import com.lexsoft.project.constructions.model.db.BidderDB;
 import com.lexsoft.project.constructions.model.dto.*;
 
 import lombok.NoArgsConstructor;
@@ -23,8 +24,8 @@ public class ClientCalls extends ClientCallExecution {
     }
 
 
-    public ResponseEntity<InvestorDto> findOneBidder(Integer port, TestRestTemplate template, String id) {
-        return executeCall("/bidders/".concat(id), port, HttpMethod.GET,null, template, InvestorDto.class);
+    public ResponseEntity<BidderDto> findOneBidder(Integer port, TestRestTemplate template, String id) {
+        return executeCall("/bidders/".concat(id), port, HttpMethod.GET,null, template, BidderDto.class);
     }
 
 

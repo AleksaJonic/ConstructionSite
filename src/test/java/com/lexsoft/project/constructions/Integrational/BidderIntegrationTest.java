@@ -1,7 +1,6 @@
 package com.lexsoft.project.constructions.Integrational;
 
 import com.lexsoft.project.constructions.model.dto.BidderDto;
-import com.lexsoft.project.constructions.model.dto.InvestorDto;
 
 import com.lexsoft.project.constructions.service.BidderService;
 import com.lexsoft.project.constructions.utils.TestingData;
@@ -65,7 +64,7 @@ public class BidderIntegrationTest {
             BidderDto bidder = bidderEntity.getBody();
             bidder.getUsers().forEach(u -> Assert.assertNotNull(u.getId()));
 
-            ResponseEntity<InvestorDto> oneInvestorEntity = clientCalls.findOneBidder(port, template, bidder.getId());
+            ResponseEntity<BidderDto> oneInvestorEntity = clientCalls.findOneBidder(port, template, bidder.getId());
             Assert.assertTrue(oneInvestorEntity.getStatusCode().is2xxSuccessful());
             Assert.assertNotNull(oneInvestorEntity.getBody());
         });
