@@ -46,6 +46,37 @@ public  abstract class ServiceHelper {
                                 OBJECT_DOES_NOT_EXIST, null, "tender", tenderId)));
     }
 
+    protected UserDB validateIfIsInvestorUser(String userId,UserMapper userMapper){
+        UserDB user = validateIfUserExist(userId,userMapper);
+        if(user.getInvestorId() == null){
+            throw new InternalWebException(HttpStatus.BAD_REQUEST,
+                    ExceptionUtils.addError(ExceptionEnum.
+                            NOT_INVESTOR_USER, null,user.getId()));
+        }
+        return user;
+    }
+
+    protected UserDB validateIfIsBidderUser(String userId,UserMapper userMapper){
+        UserDB user = validateIfUserExist(userId,userMapper);
+        if(user.getBidderId() == null){
+            throw new InternalWebException(HttpStatus.BAD_REQUEST,
+                    ExceptionUtils.addError(ExceptionEnum.
+                            NOT_BIDDER_USER, null,user.getId()));
+        }
+        return user;
+    }
+
+    protected TenderDB validateIfTenderExistAndItsActive(String tenderId, TenderMapper tenderMapper){
+        TenderDB tenderDB = validateIfTenderExist(tenderId, tenderMapper);
+        if(Boolean.FALSE.equals(tenderDB.getActive())) {
+            throw new InternalWebException(HttpStatus.BAD_REQUEST,
+                    ExceptionUtils.addError(ExceptionEnum.
+                            TENDER_IS_NO_LONGER_AVAILABLE, null, tenderDB.getId()));
+        }
+        return tenderDB;
+
+    }
+
 
 
 

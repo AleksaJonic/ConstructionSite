@@ -30,7 +30,6 @@ public class TenderTransformer implements Transformer<TenderDto, TenderDB> {
                 .id(tenderDto.getId())
                 .name(tenderDto.getName())
                 .description(tenderDto.getDescription())
-                .investor(investorTransformer.transform(tenderDto.getInvestor()))
                 .user(userTransformer.transform(tenderDto.getUser()))
                 .build();
     }

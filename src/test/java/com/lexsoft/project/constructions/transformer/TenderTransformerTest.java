@@ -59,7 +59,6 @@ public class TenderTransformerTest {
         Assert.assertEquals(tenderDto.getDescription(),transformed.getDescription());
         Assert.assertEquals(tenderDto.getId(),transformed.getId());
         Assert.assertEquals(tenderDto.getUser().getId(),transformed.getUser().getId());
-        Assert.assertEquals(tenderDto.getInvestor().getId(),transformed.getInvestor().getId());
     }
 
     @Test
@@ -69,7 +68,6 @@ public class TenderTransformerTest {
         Assert.assertEquals(tenderDB.getDescription(),transformed.getDescription());
         Assert.assertEquals(tenderDB.getId(),transformed.getId());
         Assert.assertEquals(tenderDB.getUser().getId(),transformed.getUser().getId());
-        Assert.assertEquals(tenderDB.getInvestor().getId(),transformed.getInvestor().getId());
     }
 
 

@@ -4,6 +4,7 @@ import com.lexsoft.project.constructions.exception.ExceptionEnum;
 import com.lexsoft.project.constructions.exception.ExceptionUtils;
 import com.lexsoft.project.constructions.exception.types.InternalWebException;
 import com.lexsoft.project.constructions.model.db.TenderDB;
+import com.lexsoft.project.constructions.model.db.UserDB;
 import com.lexsoft.project.constructions.repository.InvestorMapper;
 import com.lexsoft.project.constructions.repository.TenderMapper;
 import com.lexsoft.project.constructions.repository.UserMapper;
@@ -29,8 +30,10 @@ public class TenderServiceImpl extends ServiceHelper implements TenderService {
 
     @Override
     public TenderDB saveTender(TenderDB tenderDB) {
-            tenderDB.setUser(validateIfUserExist(tenderDB.getUser().getId(),userMapper));
-            tenderDB.setInvestor(validateIfInvestorExist(tenderDB.getInvestor().getId(),investorMapper));
+
+            UserDB user = validateIfIsInvestorUser(tenderDB.getUser().getId(),userMapper);
+            tenderDB.setUser(user);
+            tenderDB.setInvestor(validateIfInvestorExist(user.getInvestorId(),investorMapper));
             tenderDB.setId(UUID.randomUUID().toString());
             tenderDB.setActive(Boolean.TRUE);
             tenderMapper.saveTender(tenderDB);
@@ -50,19 +53,6 @@ public class TenderServiceImpl extends ServiceHelper implements TenderService {
     }
 
     @Override
-    public TenderDB deactivateTender(String id) {
-        TenderDB tenderById = findTenderById(id);
-        Optional.ofNullable(tenderById.getActive())
-                .filter(active -> Boolean.TRUE.equals(active))
-                .orElseThrow(() -> new InternalWebException(HttpStatus.BAD_REQUEST,
-                        ExceptionUtils.addError(ExceptionEnum.
-                                TENDER_IS_NO_LONGER_AVAILABLE, null)));
-        tenderMapper.deactivateTender(id);
-        tenderById.setActive(Boolean.TRUE);
-        return tenderById;
-    }
-
-    @Override
     @Transactional
     public Boolean deleteTender(String id) {
         findTenderById(id);
@@ -70,18 +60,6 @@ public class TenderServiceImpl extends ServiceHelper implements TenderService {
         return Boolean.TRUE;
     }
 
-    @Override
-    @Transactional
-    public void deleteAllInactiveTenders(String investorId,String userId) {
-        List<TenderDB> allTenders = findAllTenders(userId, investorId, Boolean.FALSE);
-        Optional.ofNullable(allTenders)
-                .filter(at -> !at.isEmpty())
-                .orElseThrow(() ->
-                        new InternalWebException(HttpStatus.NOT_FOUND,
-                                ExceptionUtils.addError(ExceptionEnum.
-                                        OBJECT_DOES_NOT_EXIST, null, "investorId", investorId)));
-        allTenders.forEach(tender -> tenderMapper.deleteTender(tender.getId(),null,null));
-    }
 
 
 }

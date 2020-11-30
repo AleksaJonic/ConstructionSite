@@ -8,6 +8,8 @@ import com.lexsoft.project.constructions.model.dto.TenderDto;
 import com.lexsoft.project.constructions.service.OfferService;
 import com.lexsoft.project.constructions.service.TenderService;
 import com.lexsoft.project.constructions.transformer.Transformer;
+import com.lexsoft.project.constructions.validation.impl.AcceptOfferValidator;
+import com.lexsoft.project.constructions.validation.impl.OfferValidator;
 import com.lexsoft.project.constructions.validation.impl.TenderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +23,17 @@ import java.util.List;
 public class OfferController {
 
     @Autowired
+    OfferValidator offerValidator;
+    @Autowired
     OfferService offerService;
     @Autowired
     Transformer<OfferDto, OfferDB> transformer;
+    @Autowired
+    AcceptOfferValidator acceptOfferValidator;
 
     @PostMapping
     public ResponseEntity<OfferDto> placeOffer(@RequestBody OfferDto offerDto) {
+        offerValidator.validate(offerDto,null);
         OfferDB transformed = transformer.transform(offerDto);
         OfferDB offerDB = offerService.placeOffer(transformed);
         OfferDto resultOfferDto = transformer.transformBackwards(offerDB);
@@ -56,7 +63,7 @@ public class OfferController {
     @PutMapping("/{id}/accept")
     public ResponseEntity<OfferDto> findOffers(@PathVariable("id") String id,
                                                      @RequestBody AcceptOfferDto acceptOfferDto) {
-
+        acceptOfferValidator.validate(acceptOfferDto,null);
         OfferDB offerDB = offerService.acceptOffer(id,acceptOfferDto);
         OfferDto offerDto = transformer.transformBackwards(offerDB);
         return ResponseEntity.ok(offerDto);

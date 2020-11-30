@@ -23,13 +23,13 @@ public class InvestorValidator extends AbstractValidator implements Validate<Inv
         Boolean hasParentValidator = errorList != null ? Boolean.TRUE : Boolean.FALSE;
         List<ErrorMessage> finalErrorList = Optional.ofNullable(errorList).orElse(new ArrayList<>());
 
-        validateMandatory("name",body.getName(),errorList);
-        validateMandatory("description", body.getDescription(),errorList);
+        validateMandatory("name",body.getName(),finalErrorList);
+        validateMandatory("description", body.getDescription(),finalErrorList);
 
         Optional.ofNullable(body.getUsers())
                 .filter(users -> !users.isEmpty())
                 .ifPresent(users -> users.forEach(u -> {
-                    validateMandatory("username", u.getUsername(),errorList);
+                    validateMandatory("username", u.getUsername(),finalErrorList);
                     validateMandatory("password",u.getPassword(), finalErrorList);
                 }));
 

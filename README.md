@@ -23,6 +23,8 @@ docker build -t tender . && docker run -p 8080:8080 -it tender
 ```
 this project can be executed from any IDE just running main method in ConstructionSiteApplication class.
 
+#Adds
+postman collection for triggering api calls is in postman folder in project root
 
 #CURLS for triggering api calls
 
@@ -31,23 +33,16 @@ this project can be executed from any IDE just running main method in Constructi
 curl --location --request POST 'http://localhost/construction-site/investors' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "Investor 1",
-    "description": "Some desc....",
-    "users": [
-      {
-        "username": "testuser1@example.com",
-        "password": "testPass"
-      },
-      {
-        "username": "testuser2@example.com",
-        "password": "testPass2"
-      },
-      {
-        "username": "testuser3@example.com",
-        "password": "testPass3"
-      }
-    ]
-  }'
+                "name": "Investor 1",
+                "description": "Some desc....",
+                "users": [
+                  {
+                    "username": "alexa@example.com",
+                    "password": "testPass"
+                  }
+                  
+                ]
+              }'
 ```
 
 - FIND INVESTOR BY ID: 
@@ -61,23 +56,19 @@ curl --location --request GET 'http://localhost/construction-site/investors/{id}
 curl --location --request POST 'http://localhost/construction-site/bidders' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "bidder1",
-   "hasWorkingReference": true,
-    "users": [
-      {
-        "username": "testuser1@example.com",
-        "password": "testPass"
-      },
-      {
-        "username": "testuser2@example.com",
-        "password": "testPass2"
-      },
-      {
-        "username": "testuser3@example.com",
-        "password": "testPass3"
-      }
-    ]
-  }'
+                "name": "bidder1",
+                "workingReference": true,
+                "users": [
+                  {
+                    "username": "bidder1@example.com",
+                    "password": "testPass"
+                  },
+                  {
+                    "username": "bidder2@example.com",
+                    "password": "testPass2"
+                  }
+                ]
+              }'
 ```
 - FIND BIDDER: 
 ```
@@ -89,15 +80,12 @@ curl --location --request GET 'http://localhost/construction-site/bidders/{id}' 
 curl --location --request POST 'http://localhost/construction-site/tenders' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name": "Tender 1",
-    "description": "Tender description 1",
-    "investor": {
-        "id": "76db9fdb-cc35-4621-b701-8a88fe900045"
-    },
-    "user": {
-        "id": "7e842fdf-d5eb-48ef-99b1-2df8a636b40b"
-    }
-}'
+                "name": "Tender 1",
+                "description": "Tender description 1",
+                "user": {
+                    "id": "bae3d4c6-a788-42e6-9b61-d7ab1b72e6b6"
+                }
+            }'
 ```
 - FIND TENDER BY ID: 
 ```
@@ -147,7 +135,7 @@ curl --location --request PUT 'http://localhost/construction-site/offers/{id}/ac
     "forceAccept" : true
 }'
 ```
-For Accept offer explanation:
+Accept offer explanation:
     acceptUserId -> must be the user that represents investor
     forceAccept -> not mandatory, but if its empty program will prevent for accepting any offer , 
     it will trigger check to see are there better offers for specific tender.  
@@ -155,3 +143,7 @@ For Accept offer explanation:
 
 #Improvements
 - Not all features are covered with tests
+- Some authentication is required, and can be implemented using oauth2 or jwt token.
+  I started with this idea but didn't finish, so this code is not available.
+- Response of some objects have redundant data , this can be patched
+- system logs are not available in this code version

@@ -58,13 +58,10 @@ public class OfferServiceImpl extends ServiceHelper implements OfferService {
     @Override
     @Transactional
     public OfferDB placeOffer(OfferDB offer) {
-        TenderDB tenderDB = validateIfTenderExist(offer.getTender().getId(), tenderMapper);
-        if(Boolean.FALSE.equals(tenderDB.getActive())) {
-            throw new InternalWebException(HttpStatus.BAD_REQUEST,
-                    ExceptionUtils.addError(ExceptionEnum.
-                            TENDER_IS_NO_LONGER_AVAILABLE, null, tenderDB.getId()));
-        }
-        UserDB userDB = validateIfUserExist(offer.getUser().getId(), userMapper);
+
+        validateIfTenderExistAndItsActive(offer.getTender().getId(), tenderMapper);
+
+        UserDB userDB = validateIfIsBidderUser(offer.getUser().getId(), userMapper);
         BidderDB bidderDB = validateIfBidderExist(userDB.getBidderId(), bidderMapper);
 
         offer.setBidder(bidderDB);
@@ -80,9 +77,9 @@ public class OfferServiceImpl extends ServiceHelper implements OfferService {
     public OfferDB acceptOffer(String id, AcceptOfferDto acceptOfferDto) {
         UserDB userDB = validateIfUserExist(acceptOfferDto.getAcceptUserId(), userMapper);
         OfferDB offerById = findOfferById(id);
-        TenderDB tenderDB =  tenderMapper.findTenderById(offerById.getTender().getId());
+        TenderDB tenderDB = tenderMapper.findTenderById(offerById.getTender().getId());
 
-        //check if user is investor or bidder and is inestor owner of requested tender
+        //check if user is investor or bidder and is investor owner of requested tender
         if(userDB.getInvestorId() == null || !userDB.getInvestorId().equals(tenderDB.getInvestor().getId())){
             throw new InternalWebException(HttpStatus.BAD_REQUEST,
                     ExceptionUtils.addError(ExceptionEnum.TENDER_DOES_NOT_BELONG_TO_INVESTOR

@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "7ece734a-9a01-4612-b245-cdae6fd6791f",
+		"name": "olmero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/construction-site/investors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Investor 1\",\n    \"description\": \"Some desc....\",\n    \"users\": [\n      {\n        \"username\": \"alexa@example.com\",\n        \"password\": \"testPass\"\n      }\n      \n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/investors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"investors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/construction-site/bidders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"bidder1\",\n    \"workingReference\": true,\n    \"users\": [\n      {\n        \"username\": \"bidder1@example.com\",\n        \"password\": \"testPass\"\n      },\n      {\n        \"username\": \"bidder2@example.com\",\n        \"password\": \"testPass2\"\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/bidders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"bidders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/construction-site/tenders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tender 1\",\n    \"description\": \"Tender description 1\",\n    \"user\": {\n        \"id\": \"bae3d4c6-a788-42e6-9b61-d7ab1b72e6b6\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/tenders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"tenders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/construction-site/offers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Some description of this offer\",\n    \"amount\": 100000,\n    \"user\": {\n       \"id\":\"bae3d4c6-a788-42e6-9b61-d7ab1b72e6b6\"   \n    },\n    \"tender\":{\n        \"id\":\"df687379-b471-4f5e-8241-186f689e4503\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/offers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"offers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/construction-site/offers/94b52bd1-3e0e-47fd-8ca9-80e283241f7d/accept",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"acceptUserId\":\"754d895a-dd9e-4cbd-8874-9af780289d78\",\n    \"forceAccept\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/offers/94b52bd1-3e0e-47fd-8ca9-80e283241f7d/accept",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"offers",
+						"94b52bd1-3e0e-47fd-8ca9-80e283241f7d",
+						"accept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/construction-site/offers?tender_id=83706239-e9a3-48f9-8946-d193e52266c1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/offers?tender_id=83706239-e9a3-48f9-8946-d193e52266c1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"offers"
+					],
+					"query": [
+						{
+							"key": "tender_id",
+							"value": "83706239-e9a3-48f9-8946-d193e52266c1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/construction-site/tenders?investorId=",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tender 1\",\n    \"description\": \"Tender description 1\",\n    \"investor\": {\n        \"id\": \"2bc796a3-cd70-4c37-8c3b-bbb59c46e785\"\n    },\n    \"user\": {\n        \"id\": \"754d895a-dd9e-4cbd-8874-9af780289d78\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/construction-site/tenders?investorId=c5ee458b-fc07-4bb1-8982-4998741a6ffa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"construction-site",
+						"tenders"
+					],
+					"query": [
+						{
+							"key": "investorId",
+							"value": "c5ee458b-fc07-4bb1-8982-4998741a6ffa"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

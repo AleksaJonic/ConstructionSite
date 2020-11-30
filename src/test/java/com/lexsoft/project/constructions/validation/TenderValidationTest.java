@@ -92,8 +92,7 @@ public class TenderValidationTest {
         try {
             tenderValidator.validate(tenderDto, null);
         }catch (InternalWebException ex){
-            Assert.assertEquals(4,ex.getErrors().size());
-            ex.getErrors().forEach(err -> Assert.assertEquals(Integer.valueOf(1002),err.getCode()));
+            Assert.assertEquals(3,ex.getErrors().size());
         }
     }
 }

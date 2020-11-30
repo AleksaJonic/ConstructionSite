@@ -23,13 +23,13 @@ public class BidderValidator extends AbstractValidator implements Validate<Bidde
         Boolean hasParentValidator = errorList != null ? Boolean.TRUE : Boolean.FALSE;
         List<ErrorMessage> finalErrorList = Optional.ofNullable(errorList).orElse(new ArrayList<>());
 
-        validateMandatory("name",body.getName(),errorList);
-        validateMandatory("workingReference", body.getWorkingReference(),errorList);
+        validateMandatory("name",body.getName(),finalErrorList);
+        validateMandatory("workingReference", body.getWorkingReference(),finalErrorList);
 
         Optional.ofNullable(body.getUsers())
                 .filter(users -> !users.isEmpty())
                 .ifPresent(users -> users.forEach(u -> {
-                    validateMandatory("username", u.getUsername(),errorList);
+                    validateMandatory("username", u.getUsername(),finalErrorList);
                     validateMandatory("password",u.getPassword(), finalErrorList);
                 }));
 
