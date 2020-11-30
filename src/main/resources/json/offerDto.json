@@ -1,0 +1,17 @@
+[
+  {
+    "description": "Some description of this offer",
+    "amount": 150000
+  },
+  {  "description": "Some description of this second offer",
+     "amount": 100000
+  },
+  {
+    "description": "Some description of this offer",
+    "amount": 300000
+  },
+  {  "description": "Some description of this second offer",
+    "amount": 400000
+  }
+
+]

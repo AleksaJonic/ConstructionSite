@@ -59,7 +59,6 @@ public class BidderIntegrationTest {
     public void saveBidder() {
         bidders.forEach(bidderDto -> {
 
-            System.out.println(bidderDto);
             ResponseEntity<BidderDto> bidderEntity = clientCalls.createBidder(port, template, bidderDto);
             Assert.assertTrue(bidderEntity.getStatusCode().is2xxSuccessful());
             Assert.assertNotNull(bidderEntity.getBody().getId());

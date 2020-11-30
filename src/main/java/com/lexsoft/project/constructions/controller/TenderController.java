@@ -54,13 +54,6 @@ public class TenderController {
         return ResponseEntity.ok(resultTenderList);
     }
 
-    @PutMapping("/{id}/activate")
-    public ResponseEntity<TenderDto> activateTender(@PathVariable("id") String id) {
-        TenderDB tenderDb = tenderService.activateTender(id);
-        TenderDto resultTender = transformer.transformBackwards(tenderDb);
-        return ResponseEntity.ok(resultTender);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTender(@PathVariable("id") String id) {
         tenderService.deleteTender(id);

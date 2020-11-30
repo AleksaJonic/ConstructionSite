@@ -18,6 +18,10 @@
             <id property="id" column="investor_id"/>
             <result property="name" column="investor_name"/>
         </association>
+        <collection property="offers" ofType="com.lexsoft.project.constructions.model.db.OfferDB">
+            <id property="id" column="offer_id"/>
+            <result property="amount" column="amount" />
+        </collection>
     </resultMap>
 
     <insert id="saveTender">
@@ -26,10 +30,12 @@
     </insert>
 
     <select id="findTenderById" resultMap="tenders">
-        SELECT t.id,t.name,t.description,t.active,u.id as user_id,username, i.id as investor_id, i.name AS investor_name
+        SELECT t.id,t.name,t.description,t.active,u.id as user_id,username, i.id as investor_id,
+         i.name AS investor_name, o.id AS offer_id, o.amount
         FROM tender t
         LEFT JOIN user u ON (t.user_id = u.id)
         LEFT JOIN investor i ON (t.investor_id = i.id)
+        LEFT JOIN offer o ON (t.id = o.tender_id)
         WHERE t.id = #{id}
     </select>
 
@@ -44,8 +50,8 @@
         <if test="active != null"> AND t.active = #{active} </if>
     </select>
 
-    <update id="activateTender">
-        UPDATE tender SET active = TRUE WHERE id = #{id}
+    <update id="deactivateTender">
+        UPDATE tender SET active = FALSE WHERE id = #{id}
     </update>
 
     <delete id="deleteTender">

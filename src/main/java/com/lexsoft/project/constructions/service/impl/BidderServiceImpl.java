@@ -39,8 +39,6 @@ public class BidderServiceImpl implements BidderService {
                         u.setBidderId(bidderId);
                         u.setId(UUID.randomUUID().toString());
                     });
-                    System.out.println(users);
-
                     userMapper.saveBatchUsers(users);
                 });
 

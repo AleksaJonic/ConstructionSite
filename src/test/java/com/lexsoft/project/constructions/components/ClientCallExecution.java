@@ -12,7 +12,7 @@ public abstract class ClientCallExecution {
         return "http://localhost:".concat(String.valueOf(port)).concat(path);
     }
 
-    protected <T> ResponseEntity<T> executeCall(String uriPath, Integer port, HttpMethod method, T body, TestRestTemplate template, Class<T> clazz) {
+    protected <I,T> ResponseEntity<T> executeCall(String uriPath, Integer port, HttpMethod method, I body, TestRestTemplate template, Class<T> clazz) {
         HttpEntity<String> entity = new HttpEntity(body, new HttpHeaders());
         ResponseEntity<T> executionResponse =
                 template.exchange(createUrl(uriPath, port), method, entity, clazz);

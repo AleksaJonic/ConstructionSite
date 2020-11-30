@@ -16,5 +16,6 @@ public class InvestorDB {
     private String id;
     private String name;
     private String description;
+    List<TenderDB> tenders;
     List<UserDB> users;
 }

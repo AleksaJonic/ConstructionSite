@@ -34,17 +34,4 @@ public abstract class AbstractValidator {
         }
     }
 
-
-    public static void main(String[] args) {
-        List<String> a = Arrays.asList("1","2","3","5","6");
-        List<String> availableElem = Arrays.asList("1","2","3","4");
-
-        List<String> common = new ArrayList<String>(a);
-        common.retainAll(availableElem);
-
-//        a.retainAll(availableElem);
-        System.out.println(availableElem);
-        System.out.println(common);
-    }
-
 }

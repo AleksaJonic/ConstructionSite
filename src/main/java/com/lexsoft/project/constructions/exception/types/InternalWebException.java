@@ -4,6 +4,7 @@ import com.lexsoft.project.constructions.exception.model.ErrorMessage;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -17,6 +18,8 @@ public class InternalWebException extends RuntimeException {
         this.errors = errors;
         this.httpStatus = httpStatus;
     }
+
+
 
 
 

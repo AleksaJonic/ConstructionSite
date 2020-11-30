@@ -5,10 +5,7 @@ import com.lexsoft.project.constructions.model.db.BidderDB;
 import com.lexsoft.project.constructions.model.db.InvestorDB;
 import com.lexsoft.project.constructions.model.db.TenderDB;
 import com.lexsoft.project.constructions.model.db.UserDB;
-import com.lexsoft.project.constructions.model.dto.BidderDto;
-import com.lexsoft.project.constructions.model.dto.InvestorDto;
-import com.lexsoft.project.constructions.model.dto.TenderDto;
-import com.lexsoft.project.constructions.model.dto.UserDto;
+import com.lexsoft.project.constructions.model.dto.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -86,5 +83,15 @@ public class TestingData extends FileUtils {
         TenderDto[] tenders = mapper.readValue(fileAsString, TenderDto[].class);
         return Arrays.asList(tenders);
     }
+
+    @SneakyThrows
+    public List<OfferDto> getOffers()  {
+        ObjectMapper mapper = new ObjectMapper();
+        String fileAsString = getFileAsString(DATA_FOLDER.concat("offerDto.json"));
+        OfferDto[] tenders = mapper.readValue(fileAsString, OfferDto[].class);
+        return Arrays.asList(tenders);
+    }
+
+
 
 }

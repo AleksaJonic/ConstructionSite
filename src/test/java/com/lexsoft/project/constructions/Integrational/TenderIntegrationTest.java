@@ -2,7 +2,6 @@ package com.lexsoft.project.constructions.Integrational;
 
 import com.lexsoft.project.constructions.model.db.InvestorDB;
 import com.lexsoft.project.constructions.model.dto.InvestorDto;
-
 import com.lexsoft.project.constructions.model.dto.TenderDto;
 import com.lexsoft.project.constructions.model.dto.UserDto;
 import com.lexsoft.project.constructions.repository.UserMapper;
@@ -15,7 +14,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -74,6 +75,7 @@ public class TenderIntegrationTest {
 
     @Test
     public void saveTender() {
+
         ResponseEntity<TenderDto> postTenderEntity = clientCalls.createTender(port, template, tender);
         Assert.assertTrue(postTenderEntity.getStatusCode().is2xxSuccessful());
         TenderDto tenderDto = postTenderEntity.getBody();
@@ -82,6 +84,7 @@ public class TenderIntegrationTest {
         ResponseEntity<TenderDto> getTenderEntity = clientCalls.findOneTender(port, template, tenderDto.getId());
         Assert.assertTrue(getTenderEntity.getStatusCode().is2xxSuccessful());
         Assert.assertNotNull(getTenderEntity.getBody());
+
     }
 
 
@@ -109,37 +112,5 @@ public class TenderIntegrationTest {
         Assert.assertEquals(2, responseTenders.size());
 
     }
-
-    @Test
-    public void activateTender() {
-
-        tender.setActive(Boolean.FALSE);
-        ResponseEntity<TenderDto> postTenderEntity = clientCalls.createTender(port, template, tender);
-        Assert.assertTrue(postTenderEntity.getStatusCode().is2xxSuccessful());
-        TenderDto tenderDto = postTenderEntity.getBody();
-        Assert.assertNotNull(tenderDto.getId());
-
-        ResponseEntity<TenderDto> getTenderEntity = clientCalls.findOneTender(port, template, tenderDto.getId());
-        Assert.assertTrue(getTenderEntity.getStatusCode().is2xxSuccessful());
-        Assert.assertNotNull(getTenderEntity.getBody());
-        TenderDto getTender = getTenderEntity.getBody();
-        Assert.assertEquals(Boolean.FALSE, getTender.getActive());
-
-        ResponseEntity<TenderDto> activateTenderEntity = clientCalls.activateTender(port, template, getTender.getId());
-
-        Assert.assertTrue(activateTenderEntity.getStatusCode().is2xxSuccessful());
-        Assert.assertNotNull(activateTenderEntity.getBody());
-        TenderDto activateTenderDto = activateTenderEntity.getBody();
-        Assert.assertEquals(Boolean.TRUE, activateTenderDto.getActive());
-
-    }
-
-
-
-
-
-
-
-
 
 }

@@ -5,20 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TenderDB {
+public class OfferDB {
 
     private String id;
-    private String name;
+    private Double amount;
     private String description;
-    private Boolean active;
+    private Boolean accepted;
+    private TenderDB tender;
+    private BidderDB bidder;
+    private String status;
     private UserDB user;
-    private InvestorDB investor;
-    private List<OfferDB> offers;
+    private UserDB userThatAccepted;
 }
-

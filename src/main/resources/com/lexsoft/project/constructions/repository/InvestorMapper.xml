@@ -10,11 +10,15 @@
         <result property="name" column="name"/>
         <result property="description" column="description"/>
         <collection property="users" ofType="com.lexsoft.project.constructions.model.db.UserDB">
-            <result property="id" column="id"/>
+            <result property="id" column="user_id"/>
             <result property="username" column="username"/>
             <result property="password" column="password"/>
             <result property="investorId" column="investor_id"/>
             <result property="bidderId" column="bidder_id"/>
+        </collection>
+        <collection property="tenders" ofType="com.lexsoft.project.constructions.model.db.TenderDB">
+            <result property="id" column="investor_id"/>
+            <result property="name" column="tender_name"/>
         </collection>
     </resultMap>
 
@@ -25,15 +29,18 @@
     </insert>
 
     <select id="findInvestorById" resultMap="investors">
-        SELECT i.id, i.name, i.description, u.id, u.username, u.password
+        SELECT i.id, i.name, i.description, u.id as user_id, u.username, u.password
         FROM investor i
         LEFT JOIN user u ON (i.id = u.investor_id)
+        LEFT JOIN tender t ON (i.id = t.investor_id)
         WHERE i.id = #{id}
     </select>
 
     <select id="findAllInvestors" resultMap="investors">
-        SELECT i.id, i.name, i.description, u.id, u.username, u.password
+        SELECT i.id, i.name, i.description, u.id as user_id, u.username, u.password, t.id as tender_id,
+        t.name as tender_name
         FROM investor i
+        LEFT JOIN tender t ON (i.id = t.investor_id)
         LEFT JOIN user u ON (i.id = u.investor_id)
     </select>
 

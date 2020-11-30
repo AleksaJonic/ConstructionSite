@@ -46,9 +46,14 @@ create table offer
    accepted BOOLEAN not null,
    tender_id VARCHAR(36) not null,
    bidder_id VARCHAR(36) not null,
+   user_id VARCHAR(36) not null,
+   accept_user_id VARCHAR (36) null,
+   status VARCHAR (20) not null,
    primary key(id),
    foreign key (bidder_id) references bidder(id),
-   foreign key (tender_id) references tender(id)
+   foreign key (tender_id) references tender(id),
+   foreign key (user_id) references user(id)
+
 );
 
 

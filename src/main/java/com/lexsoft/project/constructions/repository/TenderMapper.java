@@ -21,6 +21,6 @@ public interface TenderMapper {
                              @Param("investorId") String investorId,
                              @Param("userId") String userId);
 
-    public void activateTender(@Param("id") String id);
+    public void deactivateTender(@Param("id") String id);
 
 }

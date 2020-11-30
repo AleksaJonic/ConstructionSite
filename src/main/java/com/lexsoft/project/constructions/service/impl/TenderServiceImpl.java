@@ -32,7 +32,7 @@ public class TenderServiceImpl extends ServiceHelper implements TenderService {
             tenderDB.setUser(validateIfUserExist(tenderDB.getUser().getId(),userMapper));
             tenderDB.setInvestor(validateIfInvestorExist(tenderDB.getInvestor().getId(),investorMapper));
             tenderDB.setId(UUID.randomUUID().toString());
-            tenderDB.setActive(Boolean.FALSE);
+            tenderDB.setActive(Boolean.TRUE);
             tenderMapper.saveTender(tenderDB);
             return tenderDB;
     }
@@ -50,15 +50,14 @@ public class TenderServiceImpl extends ServiceHelper implements TenderService {
     }
 
     @Override
-    public TenderDB activateTender(String id) {
+    public TenderDB deactivateTender(String id) {
         TenderDB tenderById = findTenderById(id);
-        System.out.println(tenderById.getActive());
         Optional.ofNullable(tenderById.getActive())
-                .filter(active -> Boolean.FALSE.equals(active))
-                .orElseThrow(() -> new InternalWebException(HttpStatus.NOT_FOUND,
+                .filter(active -> Boolean.TRUE.equals(active))
+                .orElseThrow(() -> new InternalWebException(HttpStatus.BAD_REQUEST,
                         ExceptionUtils.addError(ExceptionEnum.
-                                TENDER_IS_ALLREADY_ACTIVE, null)));
-        tenderMapper.activateTender(id);
+                                TENDER_IS_NO_LONGER_AVAILABLE, null)));
+        tenderMapper.deactivateTender(id);
         tenderById.setActive(Boolean.TRUE);
         return tenderById;
     }

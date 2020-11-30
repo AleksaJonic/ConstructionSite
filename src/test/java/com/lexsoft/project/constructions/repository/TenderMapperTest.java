@@ -4,20 +4,20 @@ import com.lexsoft.project.constructions.model.db.InvestorDB;
 import com.lexsoft.project.constructions.model.db.TenderDB;
 import com.lexsoft.project.constructions.model.db.UserDB;
 import com.lexsoft.project.constructions.utils.TestingData;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-
-import static java.util.stream.Collectors.groupingBy;
 
 @RunWith(SpringRunner.class)
 @MybatisTest
@@ -62,9 +62,9 @@ public class TenderMapperTest {
     @After
     public void removeData() {
 
-            tenderMapper.deleteTender(null, investor.getId(),null);
-            userMapper.deleteInvestorUsers(investor.getId());
-            investorMapper.deleteInvestorById(investor.getId());
+        tenderMapper.deleteTender(null, investor.getId(), null);
+        userMapper.deleteInvestorUsers(investor.getId());
+        investorMapper.deleteInvestorById(investor.getId());
 
     }
 
@@ -89,13 +89,11 @@ public class TenderMapperTest {
     }
 
     @Test
-    public void activateTender(){
-        tenderMapper.activateTender(tender.getId());
+    public void deactivateTender(){
+        tenderMapper.deactivateTender(tender.getId());
         TenderDB tender = tenderMapper.findTenderById(this.tender.getId());
-        Assert.assertEquals(Boolean.TRUE, tender.getActive());
+        Assert.assertEquals(Boolean.FALSE, tender.getActive());
     }
-
-
 
 
 }

@@ -1,9 +1,6 @@
 package com.lexsoft.project.constructions.components;
 
-import com.lexsoft.project.constructions.model.dto.BidderDto;
-import com.lexsoft.project.constructions.model.dto.InvestorDto;
-import com.lexsoft.project.constructions.model.dto.TenderDto;
-import com.lexsoft.project.constructions.model.dto.UserDto;
+import com.lexsoft.project.constructions.model.dto.*;
 
 import lombok.NoArgsConstructor;
 
@@ -59,8 +56,24 @@ public class ClientCalls extends ClientCallExecution {
         return executeCall("/tenders", port, HttpMethod.GET,null, template, TenderDto[].class);
     }
 
-    public ResponseEntity<TenderDto> activateTender(Integer port, TestRestTemplate template, String id){
-        return executeCall("/tenders/".concat(id).concat("/activate"), port, HttpMethod.PUT,null, template, TenderDto.class);
+    public ResponseEntity<OfferDto[]> getOffersForTender(Integer port, TestRestTemplate template, String tenderId){
+        return executeCall("/offers?tenderId=".concat(tenderId),port,HttpMethod.GET,null,template,OfferDto[].class);
+    }
+
+    public ResponseEntity<OfferDto[]> getOffersForBidder(Integer port, TestRestTemplate template, String bidderId){
+        return executeCall("/offers?bidderId=".concat(bidderId),port,HttpMethod.GET,null,template,OfferDto[].class);
+    }
+
+    public ResponseEntity<OfferDto> getSingleOfferById(Integer port, TestRestTemplate template, String offerId){
+        return executeCall("/offers/".concat(offerId),port,HttpMethod.GET,null,template,OfferDto.class);
+    }
+
+    public ResponseEntity<OfferDto> placeOffer(Integer port, TestRestTemplate template, OfferDto offerDto){
+        return executeCall("/offers",port,HttpMethod.POST,offerDto,template,OfferDto.class);
+    }
+
+    public ResponseEntity<String> acceptOffer(Integer port, TestRestTemplate template, String offerId, AcceptOfferDto acceptOfferDto){
+        return executeCall("/offers/".concat(offerId).concat("/accept"),port,HttpMethod.PUT,acceptOfferDto,template,String.class);
     }
 
 }
